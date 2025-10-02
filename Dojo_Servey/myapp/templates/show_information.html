@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <div class="border h-150 w-200 mr-auto ml-auto mt-25 pt-15">
+        <h1 class="ml-10 text-[20px] font-bold">Submited Info: </h1>
+        <form>
+            {% csrf_token %}
+            <div class="flex ml-auto mr-auto w-170 mb-5 justify-between">
+                <label class="text-[20px]">Your Name: </label>
+                <label for="">{{name}}</label>
+            </div>
+            <div class="flex ml-auto mr-auto w-170 mb-5 justify-between">
+                <label class="text-[20px]">Dojo Location: </label>
+                <label for="">{{location}}</label>
+            </div>
+            <div class="flex ml-auto mr-auto w-170 mb-5 justify-between">
+                <label class="text-[20px]">Favorite Language: </label>
+                <label for="">{{language}}</label>
+            </div>
+            <div class="ml-auto mr-auto w-170 mb-5 justify-between">
+                <p class="text-[20px]">Comment(Optional): </p>
+                <label for="">{{comment}}</label>
+            </div>
+            <input type="submit" class="submit relative left-145 top-50 w-30 h-10 text-white shadow" value="Button">
+        </form>
+    </div>
+</body>
+
+</html>

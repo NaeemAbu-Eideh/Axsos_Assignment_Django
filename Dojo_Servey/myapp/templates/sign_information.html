@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <div class="border h-150 w-200 mr-auto ml-auto mt-25 pt-15">
+        <form action="/result" method="post">
+            {% csrf_token %}
+            <div class="flex ml-auto mr-auto w-170 mb-10 justify-between">
+                <label class="text-[20px]">Your Name: </label>
+                <input type="text" name="name" class="w-100 border">
+            </div>
+            <div class="flex ml-auto mr-auto w-170 mb-10 justify-between">
+                <label class="text-[20px]">Dojo Location: </label>
+                <select type="text" name="location" class="w-100 border">
+                    <option>San Jose</option>
+                    <option>Calefornia</option>
+                    <option>London</option>
+                </select>
+            </div>
+            <div class="flex ml-auto mr-auto w-170 mb-10 justify-between">
+                <label class="text-[20px]">Favorite Language: </label>
+                <select type="text" name="language" class="w-100 border">
+                    <option>Python</option>
+                    <option>C++</option>
+                    <option>JavaScript</option>
+                </select>
+            </div>
+            <div class="ml-auto mr-auto w-170 mb-10 justify-between">
+                <p class="text-[20px]">Comment(Optional): </p>
+                <textarea class="w-170 h-50 mt-4 border" name="comment"></textarea>
+            </div>
+            <input type="submit" class="submit ml-10 relative left-145 bottom-5 w-30 h-10 text-white shadow"
+                value="Button">
+        </form>
+    </div>
+</body>
+
+</html>

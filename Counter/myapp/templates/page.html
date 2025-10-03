@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+    <p class="font-bold text-[36px] mt-25 w-100 text-center ml-auto mr-auto">Counter</p>
+    <p class="w-100 text-center ml-auto mr-auto mt-5">{{request.session.count}} times.</p>\
+
+    <form action="/increment-by-2" method="post">
+        {% csrf_token %}
+        <input class="border w-30 h-10 block ml-auto mr-auto mb-3 bg-violet-700 text-[17px] text-white" type="submit" value="+2 increment">
+    </form>
+
+    <form action="/increment-by-number" method="post">
+        {% csrf_token %}
+        <input class="border w-30 h-10 block ml-auto mr-auto mb-3 text-center" type="text" name="increment_by_number">
+    </form>
+
+    <form action="/restart" method="post">
+        {% csrf_token %}
+        <input class="border w-30 h-10 block ml-auto mr-auto mb-3 bg-violet-700 text-[17px] text-white" type="submit" value="Reset">
+    </form>
+</body>
+
+</html>

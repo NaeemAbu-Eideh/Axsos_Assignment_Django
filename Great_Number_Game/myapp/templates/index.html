@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <h1 class="text-[40px] w-170 text-center ml-auto mr-auto mt-16">Welcome to the Great Number Game</h1>
+    <p class="text-[20px] w-100 text-center ml-auto mr-auto mt-7">I am thinking a number between 1 and 100</p>
+    <p class="text-[20] w-30 text-center ml-auto mr-auto mt-7">Take a guess</p>
+    <div class="result w-100 h-100 bg-red-500 ml-auto mr-auto mt-7 pt-44" style="--displayResult: {{request.session.display_result}}; --backgroundColor: {{request.session.background_color}}">
+        <p class="text-white w-60 text-[30px] ml-auto mr-auto text-center">{{request.session.result}}</p>
+        <form action="/replay">
+            {% csrf_token %}
+            <input type="submit" style="--displayButton: {{request.session.diaplay_button}}" class="play-again border w-35 h-10 block ml-auto mr-auto mt-10 bg-white" value="Play again!">
+        </form>
+    </div>
+    <form action="/input" method="post">
+        {% csrf_token %}
+        <input type="text" class="border w-40 h-10 block ml-auto mr-auto mt-10 text-center" name="number">
+        <input type="submit" class="border w-40 h-10 block ml-auto mr-auto mt-4 text-center" value="Submit">
+    </form>
+    <p class="text-[20] w-30 text-center ml-auto mr-auto mt-7">your attempts: {{request.session.attempts}}</p>
+</body>
+
+</html>

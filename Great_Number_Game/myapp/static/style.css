@@ -1,0 +1,13 @@
+.play-again{
+    box-shadow: 3px 3px 3px black;
+    display: var(--displayButton);
+}
+
+.result{
+    display: var(--displayResult);
+    background-color: var(--backgroundColor);
+}
+
+.lose{
+    display: var(--lose);
+}

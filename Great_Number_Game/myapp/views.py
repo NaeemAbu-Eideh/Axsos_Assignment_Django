@@ -7,6 +7,8 @@ def index(request):
     request.session['result'] = ""
     request.session['diaplay_button'] = "none"
     request.session['random'] = random.randint(1,100)
+    request.session['attempt'] = 0
+    request.session['input_submit'] = 'block'
     return render(request, "index.html")
 
 def input(request):
@@ -15,17 +17,22 @@ def input(request):
         request.session['background_color'] = "red"
         request.session['display_result'] = "block"
         request.session['result'] = "Too hight!"
+        request.session['attempt'] += 1
+
         
     elif (num < request.session['random']):
         request.session['background_color'] = "red"
         request.session['display_result'] = "block"
         request.session['result'] = "Too low!"
+        request.session['attempt'] += 1
+
         
     else:
         request.session['background_color'] = "green"
         request.session['display_result'] = "block"
         request.session['result'] = f"{num} was the number!"
         request.session['diaplay_button'] = "block"
+        request.session['input_submit'] = 'none'
     return redirect('newPage/')
     
 def newPage(request):

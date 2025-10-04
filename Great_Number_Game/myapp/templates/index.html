@@ -23,10 +23,10 @@
     </div>
     <form action="/input" method="post">
         {% csrf_token %}
-        <input type="text" class="border w-40 h-10 block ml-auto mr-auto mt-10 text-center" name="number">
-        <input type="submit" class="border w-40 h-10 block ml-auto mr-auto mt-4 text-center" value="Submit">
+        <input type="text" class="input-submit border w-40 h-10 block ml-auto mr-auto mt-10 text-center" name="number" style=" --input_submit : {{request.session.input_submit}}">
+        <input type="submit" class="input-submit border w-40 h-10 block ml-auto mr-auto mt-4 text-center" value="Submit" style=" --input_submit : {{request.session.input_submit}}">
     </form>
-    <p class="text-[20] w-30 text-center ml-auto mr-auto mt-7">your attempts: {{request.session.attempts}}</p>
+    <p class="text-[20] w-30 text-center ml-auto mr-auto mt-7">your attempts: {{request.session.attempt}}</p>
 </body>
 
 </html>

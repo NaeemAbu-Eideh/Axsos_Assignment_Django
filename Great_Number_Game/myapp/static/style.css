@@ -11,3 +11,7 @@
 .lose{
     display: var(--lose);
 }
+
+.input-submit{
+    display: var(--input_submit);
+}

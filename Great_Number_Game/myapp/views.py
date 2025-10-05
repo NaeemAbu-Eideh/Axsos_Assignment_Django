@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect
 import random
 
 def index(request):
+    request.session['random'] = random.randint(1,100)
     request.session['background_color'] = "red"
     request.session['display_result'] = "none"
     request.session['result'] = ""
     request.session['diaplay_button'] = "none"
-    request.session['random'] = random.randint(1,100)
+    print(request.session['random'])
     request.session['attempt'] = 0
     request.session['input_submit'] = 'block'
     return render(request, "index.html")
@@ -40,3 +41,7 @@ def newPage(request):
 
 def play_again(request):
     return redirect("/")
+
+def fulsh(request):
+    request.session.flush()
+    return redirect('/')

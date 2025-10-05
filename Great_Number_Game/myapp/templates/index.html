@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="../static/style.css">
 </head>
-
 <body>
-    <h1 class="text-[40px] w-170 text-center ml-auto mr-auto mt-16">Welcome to the Great Number Game</h1>
+    <h1 class="text-[40px]  w-170 text-center ml-auto mr-auto mt-16">Welcome to the Great Number Game</h1>
     <p class="text-[20px] w-100 text-center ml-auto mr-auto mt-7">I am thinking a number between 1 and 100</p>
     <p class="text-[20] w-30 text-center ml-auto mr-auto mt-7">Take a guess</p>
     <div class="result w-100 h-100 bg-red-500 ml-auto mr-auto mt-7 pt-44" style="--displayResult: {{request.session.display_result}}; --backgroundColor: {{request.session.background_color}}">

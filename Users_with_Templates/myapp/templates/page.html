@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class="border-b h-100 mb-6">
+        <p class="text-3xl text-center mt-10">All the Users</p>
+        <div class="h-80 overflow-y-scroll">
+            <table class="border ml-auto mr-auto mt-10">
+                <tr class="border">
+                    <th class="border pt-3 pb-3 pl-20 pr-20 bg-gray-500">ID</th>
+                    <th class="border pt-3 pb-3 pl-20 pr-20 bg-gray-500">Name</th>
+                    <th class="border pt-3 pb-3 pl-20 pr-20 bg-gray-500">Email</th>
+                    <th class="border pt-3 pb-3 pl-20 pr-20 bg-gray-500">Age</th>
+                </tr>
+                {% for i in records %}
+                <tr class="border even:bg-gray-300 odd:bg-white">
+                    <td class="border pt-3 pb-3 pl-20 pr-20">{{i.id}}</td>
+                    <td class="border pt-3 pb-3 pl-20 pr-20">{{i.fname}} {{i.lname}}</td>
+                    <td class="border pt-3 pb-3 pl-20 pr-20">{{i.email}}</td>
+                    <td class="border pt-3 pb-3 pl-20 pr-20">{{i.age}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div>
+        <p class="text-3xl text-center mt-10">Add a User</p>
+        <!-- <p class="not-found text-red-500 text-center" style=" --display : {{request.session.color}} ">one or more field is empty, please fill it</p> -->
+        <form action="/add-user" method="post" class="w-200 ml-auto mr-auto">
+            {% csrf_token %}
+            <div class="flex justify-between mb-10 mt-5">
+                <label for="">First name: </label>
+                <input class="border" type="text" name="fname">
+                <label for="">Last name: </label>
+                <input class="border" type="text" name="lname">
+            </div>
+            <div class="flex justify-between mb-10">
+                <label for="">email: </label>
+                <input class="border" type="text" name="email">
+                <label for="">age: </label>
+                <input class="border" type="text" name="age">
+            </div>
+            <input class="border block w-15 h-10 mx-auto shadow-[3px_3px_3px_rgb(0,0,0)] mb-5" type="submit" value="Add">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.not-found{
+    display:  var(--display );
+}

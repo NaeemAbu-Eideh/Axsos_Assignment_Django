@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class="border-b-3 w-450 h-80 mx-auto flex justify-between mt-10">
+        <div class=" h-60 w-200 mt-10">
+            <p class="text-red-500 text-center dojo" style=" --display_dojo : {{request.session.display_dojo}} ">one or more field in dojo is empty please fill it</p>
+            <h2 class="font-bold text-3xl text-center">Add a Dojo</h2>
+            <form class="w-200 h-51 ml-5" action="/add_dojo" method="post">
+                {% csrf_token %}
+                <div class="flex w-75 mt-5 justify-between mx-auto">
+                    <label for="name">Name</label>
+                    <input class="border w-50" type="text" name="name">
+                </div>
+                <div class="flex w-75 mt-5 justify-between mx-auto">
+                    <label for="city">City</label>
+                    <input class="border w-50" type="text" name="city">
+                </div>
+                <div class="flex w-75 mt-5 justify-between mx-auto">
+                    <label for="state">State</label>
+                    <input class="border w-50" type="text" name="state">
+                </div>
+                <input class="border block px-3 py-1 mx-auto mt-4 shadow-[2px_2px_2px_rgb(0,0,0)]" type="submit"
+                    value="Add">
+            </form>
+        </div>
+        <div class=" h-60 w-200 mt-10 mr-5">
+            <p class="text-red-500 text-center ninja" style=" --display_ninja : {{request.session.display_ninja}}" >one or more field in ninja is empty please fill it</p>
+            <h2 class="font-bold text-3xl text-center">Add a Ninja</h2> 
+            <form class="w-200 h-51" action="/add_ninja" method="post">
+                {% csrf_token %}
+                <div class="flex w-75 mt-5 justify-between mx-auto">
+                    <label for="fname">First Name</label>
+                    <input class="border w-50" type="text" name="fname">
+                </div>
+                <div class="flex w-75 mt-5 justify-between mx-auto">
+                    <label for="lname">Last Name</label>
+                    <input class="border w-50" type="text" name="lname">
+                </div>
+                <div class="flex w-75 mt-5 justify-between mx-auto">
+                    <label for="state">Dojo</label>
+                    <select class="border w-50" type="text" name="dojo">
+                        {% for dojo in dojos %}
+                        <option value="{{dojo.id}}">{{dojo.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <input class="border block px-3 py-1 mx-auto mt-4 shadow-[2px_2px_2px_rgb(0,0,0)]" type="submit"
+                    value="Add">
+            </form>
+        </div>
+    </div>
+    <div class="mt-5 w-200 h-100 mx-auto overflow-y-scroll">
+        <p class="text-3xl text-center mb-4">All the Dojos</p>
+        <div class="w-120 mx-auto">
+            {% for dojo in dojos %}
+            <div class="font-bold">Ninjas at the {{dojo.name}} Dojo</div>
+                <ul class="list-inside list-disc ml-10 ">
+                    {% for ninja in dojo.ninjas.all %}
+                    <li>{{ninja.first_name}} {{ninja.last_name}}</li>
+                    {% endfor %}
+                </ul>
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

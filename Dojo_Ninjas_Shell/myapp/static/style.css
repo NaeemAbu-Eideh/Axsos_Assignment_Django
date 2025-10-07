@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.ninja{
+    display: var( --display_ninja );
+}
+
+.dojo{
+    display: var( --display_dojo );
+}

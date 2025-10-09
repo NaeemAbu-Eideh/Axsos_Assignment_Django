@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class="flex justify-between w-420 h-200 mx-auto mt-10">
+        <div class="h-120 w-200 mt-10">
+            <h2 class="text-center text-3xl mb-5">Add an Author</h2>
+            <form action="/add-author" method="post">
+                <label class="author_wrong text-red-600 block text-center mb-5" style=" --display_author_wrong : {{request.session.author_wrong}}">one ot more field are empty, please fill it</label>
+                {% csrf_token %}
+                <div class="w-130 ml-10 flex justify-around mb-10">
+                    <label for="fname">First Name</label>
+                    <input class="border w-80 h-7" type="text" name="fname">
+                </div>
+                <div class="w-130 ml-10 flex justify-around mb-10">
+                    <label for="lname">Last Name</label>
+                    <input class="border w-80 h-7" type="text" name="lname">
+                </div>
+                <div class="w-130 ml-10 flex justify-around mb-5">
+                    <label for="note" class="ml-4">Note</label>
+                    <textarea class="border w-80 h-15" type="text" name="note"></textarea>
+                </div>
+                <input type="submit" class="border px-2 py-3 ml-50.5" value="Add">
+            </form>
+        </div>
+        <div class="h-180 w-100 mt-5 mr-40 overflow-y-scroll">
+            <table class="border">
+                <tr class="border">
+                    <th class="border px-4 bg-gray-300">ID</th>
+                    <th class="border px-15 bg-gray-300">Name</th>
+                    <th class="border px-10 bg-gray-300">Action</th>
+                </tr>
+                {% for author in authors %}
+                <tr class="border odd:bg-gray-200">
+                    <td class="border py-2 font-bold pl-1">{{author.id}}</td>
+                    <td class="border py-2 font-bold pl-1">{{author.first_name}} {{author.last_name}}</td>
+                    <td class="border py-2 font-bold text-blue-700 underline pl-1"><a href="/author/{{author.id}}">View</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}"> 
+</head>
+<body> 
+    <h1 class="text-3xl font-bold mt-15 ml-25">{{book.title}}</h1>
+    <p class="mt-5 ml-30">ID: {{book.id}}</p>
+    <div class="flex h-100 w-400 overflow-y-scroll">
+        <p class="mt-5 ml-30 font-bold text-[1.2em]">Description: </p>
+        <p class="mt-5 ml-5 font-bold text-[1.2em] w-300">{{book.desc}}</p>
+    </div>
+    <div class="w-400 h-80 mt-10">
+        <div class="w-150 h-60 overflow-y-scroll ml-20">
+            <p class="pl-20 text-2xl">Authors:</p>
+            <ul class="list-disc list-inside ml-25">
+                {% for author in book.authors.all %}
+                <li>{{author.first_name}} {{author.last_name}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <form action="/add_author_to_book" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{book.id}}" name="book_id">
+            <select name="new_author" class="border w-40 ml-40 mt-3">
+
+            </select>
+            <input type="submit" value="Add" class="border-2 mt-3 ml-3 shadow-[2px_2px_2px_rgb(0,0,0)]">
+        </form>
+    </div>
+</body>
+
+</html>

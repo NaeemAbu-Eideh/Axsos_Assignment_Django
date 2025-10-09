@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.book_wrong{
+    display: var(--display_book_wrong);
+}
+
+.author_wrong{
+    display: var(--display_author_wrong);
+}

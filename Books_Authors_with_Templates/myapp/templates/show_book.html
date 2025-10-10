@@ -28,7 +28,9 @@
             {% csrf_token %}
             <input type="hidden" value="{{book.id}}" name="book_id">
             <select name="new_author" class="border w-40 ml-40 mt-3">
-
+                {% for author in authors %}
+                <option value="{{author.id}}">{{author.first_name}} {{author.last_name}}</option>
+                {% endfor %}
             </select>
             <input type="submit" value="Add" class="border-2 mt-3 ml-3 shadow-[2px_2px_2px_rgb(0,0,0)]">
         </form>

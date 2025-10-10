@@ -46,7 +46,9 @@ def add_author_to_book(book, author):
     book.authors.add(author)
 
 def get_books_extend_of(id):
-    return Book.objects.exclude(id = id)
+    author = get_author(id)
+    return Book.objects.exclude(authors = author.id)
 
 def get_authors_extend_of(id):
-    return Author.objects.exclude(id = id)
+    book = get_book(id)
+    return Author.objects.exclude(book = book.id)

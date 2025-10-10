@@ -24,7 +24,7 @@
                     <label for="desc" class="ml-4">Description</label>
                     <textarea class="border w-80 h-15 mr-4" type="text" name="desc"></textarea>
                 </div>
-                <input type="submit" class="border px-2 py-3 ml-50.5" value="Add">
+                <input type="submit" class="border px-2 py-3 ml-50.5 shadow-[2px_2px_2px_rgb(0,0,0)]" value="Add">
             </form>
         </div>
         <div class="h-180 w-100 mt-5 mr-40 overflow-y-scroll">
@@ -38,7 +38,7 @@
                 <tr class="border odd:bg-gray-200">
                     <td class="border py-2 font-bold pl-1">{{book.id}}</td>
                     <td class="border py-2 font-bold pl-1">{{book.title}}</td>
-                    <td class="border py-2 font-bold text-blue-700 underline pl-1"><a href="/book/{{book.id}}">View</a></td>
+                    <td class="border py-2 font-bold text-blue-700 underline pl-1"><a href="/books/{{book.id}}">View</a></td>
                 </tr>
                 {% endfor %}
             </table>

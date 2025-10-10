@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from . import models
 
-def index(request):
+def go_to_books(request):
     if('book_wrong' not in request.session):
         request.session['book_wrong'] = "none"
     
@@ -72,5 +72,12 @@ def add_book_to_author(request):
     author = models.get_author(id)
     book = models.get_book(request.POST['new_book'])
     models.add_book_to_author(author, book)
-    return redirect(f'author/{author.id}')
+    return redirect(f'authors/{author.id}')
+
+def add_auther_to_book(request):
+    id = request.POST['book_id']
+    book = models.get_book(id)
+    author = models.get_author(request.POST['new_author'])
+    models.add_author_to_book(book, author)
+    return redirect(f'books/{book.id}')
 

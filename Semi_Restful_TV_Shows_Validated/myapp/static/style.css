@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.update_show{
+    display: var(--edit_display);
+}
+
+.insert_show{
+    display: var(--add_display);
+}

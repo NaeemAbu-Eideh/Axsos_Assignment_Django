@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class="flex items-center mt-10 w-300 justify-between ml-auto ">
+        <h1 class="text-3xl font-bold">Edit Show {{show.id}}</h1>
+        <a href="../" class="text-blue-400 mr-30 underline">Go Back</a>
+    </div>
+    <form action="/edit_view" method="post" class="w-130 mx-auto mt-13">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{show.id}}">
+        <div class="mb-14">
+            <label for="" class="block mb-2 text-[0.9em]">Title</label>
+            <input type="text" name="title" class="border pl-2" value="{{show.title}}">
+        </div>
+        <div class="flex justify-between mb-15">
+            <div class="">
+                <label for="" class="block mb-2 text-[0.9em]">Network</label>
+                <input type="text" name="network" class="border pl-2" value="{{show.network}}">
+            </div>
+            <div class="">
+                <label for="" class="block mb-2 text-[0.9em]">RelesDate</label>
+                <input type="datetime" name="date" class="border pl-2" value="{{show.release_date}}">
+            </div>
+        </div>
+        <div class="">
+            <label for="" class="block">Description</label>
+            <textarea name="desc" class="border h-25 w-80 mb-15 pl-2">{{show.description}}</textarea>
+        </div>
+        <input type="submit" value="Update" class="border block mx-auto mb-10 w-20 shadow-[2px_2px_2px_rgb(0,0,0)]">
+        <div class="update_show mt-7" style=" --edit_display : {{request.session.edit_display}}">
+            {% if messages %}
+            {% for message in messages %}
+            <p class="text-red-400 mb-3">{{message}}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </form>
+    <a href="/shows" class="text-blue-400 underline block text-center">Go to show</a>
+</body>
+
+</html>

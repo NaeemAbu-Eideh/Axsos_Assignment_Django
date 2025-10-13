@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class="flex items-center w-400 mx-auto my-14 justify-between">
+        <h1 class="text-3xl font-bold">TV Show {{show.id}}</h1>
+        <a href="../" class="text-blue-400 underline">Go Back</a>
+    </div>
+    <div class="ml-40 w-300">
+        <p class="mb-7">Title: {{show.title}}</p>
+        <p class="mb-7">Network: {{show.network}}</p>
+        <p class="mb-7">Release Date: {{show.release_date}}</p>
+        <p class="h-50 overflow-y-scroll mb-10">Description: {{show.description}}</p>
+    </div>
+    <p class="block ml-40 mb-10">Last Updated: date</p>
+    <div class="flex items-center justify-between w-30 ml-40">
+        <a href="/shows/{{show.id}}/edit" class="text-blue-400 underline">Edit </a>
+        <p> | </p>
+        <form action="/delete" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{show.id}}">
+            <input type="submit" value="Delete" class="text-blue-400 underline">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -33,6 +33,8 @@
                         <a href="/shows/{{show.id}}/edit" class="text-blue-400 underline">Edit</a>
                         <p>|</p>
                         <form action="/delete" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{show.id}}" name="id">
                             <input type="submit" value="Delete" class="text-blue-400 underline">
                         </form>
                     </div>

@@ -2,48 +2,35 @@ from django.shortcuts import render, redirect
 from . import models
 from datetime import datetime
 
-
-def add_show(request):
-    return render(request, 'add_new_show.html')
-
-def edit_show(request, id):
-    request.session['edit_id'] = id
-    return render(request, 'edit_show.html')
-
-def all_shows(request):
-    shows = models.all_shows()
+def all_tv_shows(request):
+    all_shows = models.all_shows()
     context = {
-        'shows': shows
+        'shows': all_shows
     }
     return render(request, 'all_shows.html', context)
 
-def tv_show(request, id):
+def show_tv(request, id):
     show = models.get_show(id)
     context = {
         'show': show
     }
     return render(request, 'tv_show.html', context)
 
-def insert_show(request):
+def edit_show_page(request, id):
+    show = models.get_show(id)
     context = {
-        'title': request.POST['title'],
-        'network': request.POST['network'],
-        'date': request.POST['date'],
-        'desc': request.POST['desc']
+        'show': show
     }
-    models.add_show(context)
-    return redirect('shows/2/')
+    return render(request, 'edit_show.html', context)
 
-def update_show(request):
-    context = {
-        'title' : request.POST['title'],
-        'date' : request.POST['date'],
-        'network' : request.POST['network'],
-        'desc' : request.POST['desc']
-    }
-    id = request.session['edit_id']
-    models.update_title(id, context['title'])
-    models.update_network(id, context['network'])
-    models.update_release_date(id, context['date'])
-    models.update_description(id, context['desc'])
-    return redirect(f'shows/{{id}}/')
+def delete_show(request):
+    id = request.POST['id']
+    models.remove(id)
+    return redirect('/shows')
+
+def add_new_show(request):
+    return render(request, 'add_new_show.html')
+
+def add_show(request):
+    show = models.add_show(request.POST)
+    return redirect(f'/shows/{show.id}')

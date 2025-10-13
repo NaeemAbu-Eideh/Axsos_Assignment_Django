@@ -42,4 +42,5 @@ def get_show(id):
     return Show.objects.get(id = id)
 
 def add_show(context):
-    Show.objects.create(title = context['title'], network = context['network'], release_date = context['date'], description = context['desc'])
+    show = Show.objects.create(title = context['title'], network = context['network'], release_date = context['date'], description = context['desc'])
+    return show

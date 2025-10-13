@@ -21,17 +21,17 @@ def update_title(id, title):
 
 def update_network(id, net):
     data = Show.objects.get(id = id)
-    data.title = net
+    data.network = net
     data.save()
 
 def update_release_date(id, date):
     data = Show.objects.get(id = id)
-    data.title = date
+    data.release_date = date
     data.save()
 
 def update_description(id, desc):
     data = Show.objects.get(id = id)
-    data.title = desc
+    data.description = desc
     data.save()
 
 def remove(id):

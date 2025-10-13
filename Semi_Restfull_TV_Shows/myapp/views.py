@@ -34,3 +34,11 @@ def add_new_show(request):
 def add_show(request):
     show = models.add_show(request.POST)
     return redirect(f'/shows/{show.id}')
+
+def update_show(request):
+    id = request.POST['id']
+    models.update_title(id, request.POST['title'])
+    models.update_network(id, request.POST['network'])
+    models.update_release_date(id, request.POST['date'])
+    models.update_description(id, request.POST['desc'])
+    return redirect(f'/shows/{id}')

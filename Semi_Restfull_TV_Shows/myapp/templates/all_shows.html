@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <h1 class="text-4xl mt-15 ml-40 mb-12">All Shows</h1>
+    <div class="w-400 h-100 mx-auto mb-10 overflow-y-scroll">
+        <table class="border">
+            <tr class="border bg-gray-500">
+                <th class="border px-5 py-2">ID</th>
+                <th class="border px-40 py-2">Title</th>
+                <th class="border px-50 py-2">Network</th>
+                <th class="border px-30 py-2">Release Date</th>
+                <th class="border px-37 py-2">Actions</th>
+            </tr>
+            {% for show in shows %}
+            <tr class="border odd:bg-white  even:bg-gray-300">
+                <td class="border px-5 pl-3 py-2">{{show.id}}</td>
+                <td class="border pr-40 pl-3 py-2">{{show.title}}</td>
+                <td class="border pr-50 pl-3 py-2">{{show.network}}</td>
+                <td class="border pr-30 pl-3 py-2">{{show.release_date}}</td>
+                <td class="border pr-37 pl-20 py-2">
+                    <div class="flex justify-between w-40">
+                        <a href="/shows/{{show.id}}" class="text-blue-400 underline">Show</a>
+                        <p>|</p>
+                        <a href="/shows/{{show.id}}/edit" class="text-blue-400 underline">Edit</a>
+                        <p>|</p>
+                        <form action="/delete" method="post">
+                            <input type="submit" value="Delete" class="text-blue-400 underline">
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <a href="/shows/new" class="text-blue-400 underline ml-40">add a New Show</a>
+</body>
+
+</html>

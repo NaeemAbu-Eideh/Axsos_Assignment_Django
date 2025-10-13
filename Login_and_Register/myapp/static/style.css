@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.signup{
+    display: var(--signup_display);
+}
+
+.signin{
+    display: var(--login_display);
+}

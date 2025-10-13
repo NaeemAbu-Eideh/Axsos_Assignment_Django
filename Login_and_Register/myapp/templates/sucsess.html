@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+  <div class="flex ml-10 mt-10 mb-5 items-center w-400 justify-between">
+    <h1 class="text-2xl">Success! Welcome {{request.session.account_user.fname}}.</h1>
+    <form action="/logout" method="post">
+      {% csrf_token %}
+      <input type="submit" class="text-blue-400 underline text-[1.1em]" value="logout">
+    </form>
+  </div>
+  <p class="text-green-400 ml-10">Successfuly registerd (or loged in)!</h1>
+</body>
+
+</html>

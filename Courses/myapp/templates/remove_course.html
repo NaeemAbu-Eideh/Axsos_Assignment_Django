@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <h1 class="text-5xl font-bold text-center mt-10">Are you sure you want to delete the following course?</h1>
+    <div class="mt-10 mx-auto mb-20 w-304">
+        <div class="flex justify-between w-150 mb-4">
+            <p class="text-[1.4em]">Name:</p>
+            <p class="w-100">{{course.title}}</p>
+        </div>
+        <div class="flex justify-between w-150">
+            <p class="text-[1.4em]">Description:</p>
+            <p class="w-100">{{course.description}}</p>
+        </div>
+    </div>
+    <form action="/remove" method="post" class="flex mx-auto w-300 justify-around">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{course.id}}">
+        <a href="/" class="border-2 border-black bg-gray-200 w-10 h-8 text-center py-1 shadow-[3px_3px_3px_rgb(0,0,0)]">No</a>
+        <input type="submit" value="Yes! I eant to delete this" class="border-2 border-black h-10 w-100 ml-25 text-2xl bg-red-600 text-white shadow-[3px_3px_3px_rgb(0,0,0)]">
+    </form>
+</body>
+
+</html>

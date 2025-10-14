@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class="flex justify-between px-20 pt-5 items-center border-b-2 pb-4">
+        <h1 class="text-3xl">CodingDojo Wall</h1>
+        <div class="flex w-100 justify-between items-center">
+            <p class="text-2xl">Welcome {{request.session.account_user.fname}}</p>
+            <a href="../" class="underline text-blue-400">Go back</a>
+            <form action="/logout" method="post">
+                {% csrf_token %}
+                <input type="submit" value="logout" class="text-blue-400 underline">
+            </form>
+        </div>
+    </div>
+    <form action="/add_message" method="post" class="mx-auto mt-10 w-400">
+        {% csrf_token %}
+        <label class="block text-2xl mb-2">Post a message</label>
+        <textarea name="desc" class="h-30 w-400 border block"></textarea>
+        <input type="submit" value="Post a message"
+            class="block border-2 bg-blue-400 text-white w-50 border-black shadow-[3px_3px_3px_rgb(0,0,0)] ml-auto mt-3">
+        <div class="mt-10">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.extra_tags == "message" %}
+            <p class="text-red-500">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </form>
+    <div class="w-400 h-130 mx-auto mt-5 overflow-y-auto">
+        {% for message in messages_desc %}
+        <p class="font-bold text-2xl mt-3">{{message.users.first_name}} {{message.users.last_name}} -
+            {{message.created_at}}</p>
+        <div class="ml-3 mt-3 mb-5">
+            {{message.message_description}}
+            <div class="ml-3 mt-4 w-300">
+                {% for comment in message.comments.all %}
+                <p class="font-bold">{{comment.users.first_name}} {{comment.users.last_name}} - {{comment.created_at}}</p>
+                <p class="ml-3 mt-2 mb-2">{{comment.comment_description}}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <form action="/add_comment" method="post" class="mx-auto mt-10 ml-2 w-300">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{message.id}}">
+            <label class="block text-[1.2em] mb-2">Post a comment</label>
+            <textarea name="desc" class="h-20 w-300 border block"></textarea>
+            <input type="submit" value="Post a comment"
+                class="block border-2 bg-green-400 text-white w-50 border-black shadow-[3px_3px_3px_rgb(0,0,0)] ml-auto mt-3">
+            <div class="mt-10">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.extra_tags == "comment" %}
+                <p class="text-red-500">{{message}}</p>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </form>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

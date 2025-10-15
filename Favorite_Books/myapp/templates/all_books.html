@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+    <div class="flex justify-between items-center mt-10 w-450 mx-auto border-b-2 pb-5 mb-10">
+        <h1 class="text-3xl">Welcome {{user.first_name}}</h1>
+        <form action="/logout" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Logout" class="underline text-blue-400 text-[1.2em]">
+        </form>
+    </div>
+    <div class="flex justify-between w-450 mx-auto">
+        <form action="/add_favorite_book" method="post" class="w-200">
+            {% csrf_token %}
+            <input type="hidden" name="user_id" value="{{user.id}}">
+            <p class="text-[1.4em] font-bold mb-7">Add a Favorite Boook</p>
+            <div class="flex justify-between w-130 mb-5">
+                <label for="title" class="text-[1.2em]">Title</label>
+                <input type="text" name="title" class="border w-100 pl-2">
+            </div>
+            <div class="flex justify-between w-130">
+                <label for="desc" class="text-[1.2em]">Description</label>
+                <textarea name="desc" class="border w-100 h-20 pl-2"></textarea>
+            </div>
+            <input type="submit" value="Add" class="w-15 h-8 border-2 border-black bg-gray-100 px-2 shadow-[3px_3px_3px_rgb(0,0,0)] ml-30 mt-5">
+            <div class="mt-5">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.extra_tags == "book" %}
+                <p class="text-red-500 mb-3">{{message}}</p>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </form>
+        <div class="w-100 h-180 mr-40 overflow-auto">
+            <p class="text-[1.4em] font-bold mb-8">All Books</p>
+            {% for book in books %}
+            <div class="mb-10">
+                <a href="/books/{{book.id}}" class="underline text-blue-600 text-[1.1em]">{{book.title}}</a>
+                <p>(added by {{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}})</p>
+                {% if user in book.users_who_likes.all %}
+                <p>this is one of your favorites</p>
+                {% else %}
+                <form action="/add_to_your_favoriets" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{book.id}}" name="book_id">
+                    <input type="hidden" value="{{user.id}}" name="user_id">
+                    <input type="submit" class="underline text-blue-400" value="Add to Favorites">
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

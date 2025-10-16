@@ -10,16 +10,15 @@
 <body>
     <div class="flex justify-between items-center mt-10 w-450 mx-auto border-b-2 pb-5 mb-20">
         <h1 class="text-3xl">Welcome {{user.first_name}}</h1>
-        <form action="/logout" method="post" class="flex justify-between w-40">
+        <form action="/books/{{book.id}}/logout" method="post" class="flex justify-between w-40">
             <a href="../" class="underline text-blue-500 text-[1.2em]">Go Back</a>
             {% csrf_token %}
             <input type="submit" value="Logout" class="underline text-blue-400 text-[1.2em]">
         </form>
     </div>
     <div class="inline-block">
-        <form action="/update_book_details" method="post" class="ml-15 w-160 mr-30">
+        <form action="/books/{{book.id}}/update_book_details" method="post" class="ml-15 w-160 mr-30">
             {% csrf_token %}
-            <input type="hidden" value="{{book.id}}" name="book_id">
             <input type="text" name="title" value="{{book.title}}" class="text-4xl mb-6 border pl-2 pb-1">
             <p class="text-[1.4em] mb-4">Added by: {{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}}</p>
             <p class="text-[1.4em] mb-4">Added on: {{book.created_at}}</p>
@@ -29,9 +28,8 @@
             <input type="submit" value="Update"
                 class="border-black border-2 w-20 h-6 px-2 pb-6 shadow-[2px_2px_2px_rgb(0,0,0)] block ml-30">
         </form>
-        <form action="/delete_book" method="post">
+        <form action="/books/{{book.id}}/delete_book" method="post">
             {% csrf_token %}
-            <input type="hidden" value="{{book.id}}" name="id_for_book">
             <input type="submit" value="Delete"
                 class="bg-red-500 text-white border-black border-2 w-20 h-6 px-2 pb-6 shadow-[2px_2px_2px_rgb(0,0,0)] block relative left-70 bottom-7">
         </form>
@@ -43,9 +41,8 @@
             {% for user_who_like in book.users_who_likes.all %}
             <li>{{user_who_like.first_name}} {{user_who_like.last_name}}
                 {% if user_who_like.id == user.id %}
-                <form action="/un_favorite" method="post" class="inline-block ml-4">
+                <form action="/books/{{book.id}}/un_favorite" method="post" class="inline-block ml-4">
                     {% csrf_token %}
-                    <input type="hidden" name="book_id" value="{{book.id}}">
                     <input type="submit" value="Un-Favorite" class="underline text-blue-500">
                 </form>
                 {% endif %}
@@ -53,9 +50,8 @@
             {% endfor %}
         </ul>
         {% if user not in book.users_who_likes.all %}
-        <form action="/add_to_your_favoriets_in_info" method="post">
+        <form action="/books/{{book.id}}/add_to_your_favoriets_in_info" method="post">
             {% csrf_token %}
-            <input type="hidden" value="{{book.id}}" name="book_id">
             <input type="hidden" value="{{user.id}}" name="user_id">
             <input type="submit" class="underline text-blue-400" value="Add to Favorites">
         </form>

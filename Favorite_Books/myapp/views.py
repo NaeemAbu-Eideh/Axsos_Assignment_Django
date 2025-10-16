@@ -3,7 +3,12 @@ from . import models
 from django.contrib import messages
 import bcrypt
 
-def add_favorit(req):
+def add_favorit(req, id={}):
+    if len(id) == 0:
+        book = models.get_book(id['id'])
+        user = models.get_user(req.POST['user_id'])
+        models.add_book_to_user_favorite(book, user)
+        return {'book': book, 'user': user}
     book = models.get_book(req.POST['book_id'])
     user = models.get_user(req.POST['user_id'])
     models.add_book_to_user_favorite(book, user)
@@ -65,7 +70,8 @@ def signin(request):
     request.session['user_id'] = user.id
     return redirect('/books')
 
-def logout(request):
+def logout(request, id = 0):
+    book = models.get_users_by_email(id)
     if request.method == 'GET':
         return redirect('/')
     del request.session['user_id']
@@ -97,8 +103,8 @@ def add_to_your_favoriets(request):
 
 def add_to_your_favoriets_in_info(request):
     if request.method == "GET":
-        return redirect('/books')
-    context = add_favorit(request)
+        return redirect(f'/books/{id}')
+    context = add_favorit(request, {'id': id})
     book = context['book']
     return redirect(f'/books/{book.id}')
 
@@ -117,10 +123,9 @@ def show_book_details(request, id):
         return render(request, 'edit_book.html', context)
     return render(request, 'book_details.html', context)
 
-def delete_book(request):
+def delete_book(request, id):
     if request.method == "GET":
-        return redirect('/books')
-    id  = request.POST["id_for_book"]
+        return redirect(f'/books/{id}')
     book = models.get_book(id)
     users = book.users_who_likes.all()
     for user in users:
@@ -128,22 +133,20 @@ def delete_book(request):
     book.delete()
     return redirect('/books')
 
-def update_book_details(request):
+def update_book_details(request, id):
     if request.method == "GET":
-        return redirect('/books')
-    id = request.POST['book_id']
+        return redirect(f'/books/{id}')
     book = models.get_book(id)
     book.title = request.POST['title']
     book.description = request.POST['desc']
     book.save()
-    return redirect(f'/books/{book.id}')
+    return redirect(f'/books/{id}')
 
-def un_favorite(request):
+def un_favorite(request, id):
     if request.method == "GET":
-        return redirect('/books')
-    book_id = request.POST['book_id']
+        return redirect(f'/books/{id}')
     user_id = request.session['user_id']
     user = models.get_user(user_id)
-    book = models.get_book(book_id)
+    book = models.get_book(id)
     models.remove_user_from_favorite(book, user)
-    return redirect(f'/books/{book.id}')
+    return redirect(f'/books/{id}')

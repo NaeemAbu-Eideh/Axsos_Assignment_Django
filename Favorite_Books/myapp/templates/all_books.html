@@ -10,13 +10,13 @@
 <body>
     <div class="flex justify-between items-center mt-10 w-450 mx-auto border-b-2 pb-5 mb-10">
         <h1 class="text-3xl">Welcome {{user.first_name}}</h1>
-        <form action="/logout" method="post">
+        <form action="/books/logout" method="post">
             {% csrf_token %}
             <input type="submit" value="Logout" class="underline text-blue-400 text-[1.2em]">
         </form>
     </div>
     <div class="flex justify-between w-450 mx-auto">
-        <form action="/add_favorite_book" method="post" class="w-200">
+        <form action="/books/add_favorite_book" method="post" class="w-200">
             {% csrf_token %}
             <input type="hidden" name="user_id" value="{{user.id}}">
             <p class="text-[1.4em] font-bold mb-7">Add a Favorite Boook</p>
@@ -48,7 +48,7 @@
                 {% if user in book.users_who_likes.all %}
                 <p>this is one of your favorites</p>
                 {% else %}
-                <form action="/add_to_your_favoriets" method="post">
+                <form action="/books/add_to_your_favoriets" method="post">
                     {% csrf_token %}
                     <input type="hidden" value="{{book.id}}" name="book_id">
                     <input type="hidden" value="{{user.id}}" name="user_id">
